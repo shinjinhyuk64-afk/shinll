@@ -1,0 +1,233 @@
+:root {
+  --bg: #f4f6f9;
+  --card-bg: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #e5e7eb;
+  --good: #16a34a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  background: linear-gradient(135deg, var(--primary), #1e40af);
+  color: white;
+  padding: 40px 20px 32px;
+  text-align: center;
+}
+
+.app-header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.subtitle {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 15px;
+}
+
+.container {
+  max-width: 900px;
+  margin: -24px auto 40px;
+  padding: 0 20px;
+}
+
+.search-form {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.search-form button {
+  padding: 11px 24px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.search-form button:hover {
+  background: var(--primary-dark);
+}
+
+.result {
+  margin-top: 28px;
+}
+
+.result h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.stat-card .label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.stat-card .value {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.stat-card.highlight .value {
+  color: var(--primary);
+}
+
+.table-wrap {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+th {
+  background: #f9fafb;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+.price-cell {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.similarity-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.similarity-bar .bar {
+  width: 48px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.similarity-bar .bar .fill {
+  height: 100%;
+  background: var(--good);
+}
+
+.empty-state {
+  margin-top: 28px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.suggestions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.suggestions button {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--primary);
+  background: white;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.suggestions button:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.app-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 20px;
+}
