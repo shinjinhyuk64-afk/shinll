@@ -3,80 +3,73 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>중고차 시세 조회</title>
+<title>중고차 시세 콘솔</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="app-header">
-    <h1>🚗 중고차 시세 조회</h1>
-    <p class="subtitle">모델명과 연식을 입력하면 유사한 중고차 시세를 보여드려요.</p>
-  </header>
+  <div class="credit-banner">이창민 시켜서 만들었음</div>
 
-  <main class="container">
-    <form id="search-form" class="search-form">
-      <div class="field">
+  <div class="bezel">
+    <div class="bezel-top">
+      <div class="brand">
+        <span class="mark">SHINLL</span>
+        <div>
+          <h1>중고차 시세 콘솔</h1>
+          <p class="tagline">모델명 + 연식을 입력하면 유사 매물 시세를 보여줍니다</p>
+        </div>
+      </div>
+    </div>
+    <form class="search-panel" id="search-form">
+      <div class="dial">
         <label for="model-input">모델명</label>
-        <input
-          type="text"
-          id="model-input"
-          name="model"
-          placeholder="예: 아반떼, 쏘나타, 그랜저"
-          list="model-list"
-          autocomplete="off"
-          required
-        />
+        <input type="text" id="model-input" placeholder="예: 아반떼, 쏘나타, 그랜저" list="model-list" autocomplete="off" required />
         <datalist id="model-list"></datalist>
       </div>
-
-      <div class="field">
+      <div class="dial">
         <label for="year-input">연식</label>
-        <input
-          type="number"
-          id="year-input"
-          name="year"
-          placeholder="예: 2020"
-          min="2000"
-          max="2026"
-          required
-        />
+        <input type="number" class="num-input" id="year-input" placeholder="예: 2020" min="2000" max="2026" required />
       </div>
-
       <button type="submit">시세 조회</button>
     </form>
+  </div>
 
-    <section id="result" class="result" hidden>
-      <h2 id="result-title"></h2>
-
-      <div class="stat-cards" id="stat-cards"></div>
-
-      <div class="table-wrap">
-        <table id="result-table">
-          <thead>
-            <tr>
-              <th>제조사</th>
-              <th>모델</th>
-              <th>연식</th>
-              <th>주행거리</th>
-              <th>연료</th>
-              <th>지역</th>
-              <th>가격</th>
-              <th>유사도</th>
-            </tr>
-          </thead>
-          <tbody id="result-body"></tbody>
-        </table>
+  <main class="content">
+    <section id="result" hidden>
+      <div class="result-head">
+        <h2 id="result-title"></h2>
+        <span class="stamp" id="result-stamp"></span>
+      </div>
+      <div class="gauge-row" id="gauge-row"></div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>제조사</th>
+                <th>모델</th>
+                <th class="num">연식</th>
+                <th class="num">주행거리</th>
+                <th>연료</th>
+                <th>지역</th>
+                <th class="num">가격</th>
+                <th>유사도</th>
+              </tr>
+            </thead>
+            <tbody id="result-body"></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
-    <section id="empty-state" class="empty-state" hidden>
+    <section id="empty-state" class="empty-panel" hidden>
       <p id="empty-message"></p>
-      <div id="suggestions" class="suggestions"></div>
+      <div class="chips" id="suggestions"></div>
     </section>
+
+    <p class="hint" id="hint">모델명과 연식을 입력하고 시세 조회를 눌러보세요.</p>
   </main>
 
-  <footer class="app-footer">
-    <p>※ 본 앱의 시세는 학습/데모 목적의 샘플 데이터이며 실제 시세와 다를 수 있습니다.</p>
-  </footer>
+  <footer class="note">※ 본 앱의 시세는 학습/데모 목적의 샘플 데이터이며 실제 시세와 다를 수 있습니다.</footer>
 
   <script src="assets/data.js"></script>
   <script src="app.js"></script>

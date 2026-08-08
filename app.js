@@ -8,8 +8,10 @@ const modelList = document.getElementById("model-list");
 
 const resultSection = document.getElementById("result");
 const resultTitle = document.getElementById("result-title");
-const statCards = document.getElementById("stat-cards");
+const resultStamp = document.getElementById("result-stamp");
+const gaugeRow = document.getElementById("gauge-row");
 const resultBody = document.getElementById("result-body");
+const hint = document.getElementById("hint");
 
 const emptyState = document.getElementById("empty-state");
 const emptyMessage = document.getElementById("empty-message");
@@ -96,33 +98,39 @@ function closestModelSuggestions(inputRaw, limit = 5) {
   return scored.slice(0, limit).map((s) => s.model);
 }
 
-function renderStatCards(matches) {
+function fuelChipClass(fuel) {
+  if (fuel === "하이브리드") return "fuel-chip hybrid";
+  if (fuel === "디젤") return "fuel-chip diesel";
+  return "fuel-chip";
+}
+
+function renderGauges(matches) {
   const prices = matches.map((m) => m.price);
   const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
   const min = Math.min(...prices);
   const max = Math.max(...prices);
   const med = median(prices);
 
-  statCards.innerHTML = `
-    <div class="stat-card highlight">
+  gaugeRow.innerHTML = `
+    <div class="gauge highlight">
       <div class="label">평균 시세</div>
-      <div class="value">${formatPrice(avg)}</div>
+      <div class="value num">${formatPrice(avg)}</div>
     </div>
-    <div class="stat-card">
+    <div class="gauge">
       <div class="label">중간값</div>
-      <div class="value">${formatPrice(med)}</div>
+      <div class="value num">${formatPrice(med)}</div>
     </div>
-    <div class="stat-card">
+    <div class="gauge">
       <div class="label">최저가</div>
-      <div class="value">${formatPrice(min)}</div>
+      <div class="value num">${formatPrice(min)}</div>
     </div>
-    <div class="stat-card">
+    <div class="gauge">
       <div class="label">최고가</div>
-      <div class="value">${formatPrice(max)}</div>
+      <div class="value num">${formatPrice(max)}</div>
     </div>
-    <div class="stat-card">
+    <div class="gauge">
       <div class="label">매물 수</div>
-      <div class="value">${matches.length}건</div>
+      <div class="value num">${matches.length}건</div>
     </div>
   `;
 }
@@ -135,15 +143,15 @@ function renderTable(scoredListings) {
         <tr>
           <td>${item.manufacturer}</td>
           <td>${item.model}</td>
-          <td>${item.year}년식</td>
-          <td>${formatMileage(item.mileage)}</td>
-          <td>${item.fuel}</td>
+          <td class="num">${item.year}</td>
+          <td class="num">${formatMileage(item.mileage)}</td>
+          <td><span class="${fuelChipClass(item.fuel)}">${item.fuel}</span></td>
           <td>${item.region}</td>
-          <td class="price-cell">${formatPrice(item.price)}</td>
+          <td class="num price">${formatPrice(item.price)}</td>
           <td>
-            <span class="similarity-bar">
-              <span class="bar"><span class="fill" style="width:${pct}%"></span></span>
-              ${pct}%
+            <span class="meter">
+              <span class="track"><span class="fill" style="width:${pct}%"></span></span>
+              <span class="pct num">${pct}%</span>
             </span>
           </td>
         </tr>
@@ -153,6 +161,7 @@ function renderTable(scoredListings) {
 }
 
 function showEmptyState(inputModel) {
+  hint.hidden = true;
   resultSection.hidden = true;
   emptyState.hidden = false;
   emptyMessage.textContent = `'${inputModel}'와(과) 일치하거나 유사한 모델을 찾지 못했어요. 아래 모델 중 하나를 선택해보세요.`;
@@ -183,6 +192,7 @@ function handleSearch(inputModel, inputYear) {
     return;
   }
 
+  hint.hidden = true;
   emptyState.hidden = true;
   resultSection.hidden = false;
 
@@ -204,7 +214,8 @@ function handleSearch(inputModel, inputYear) {
 
   const displayModel = scored[0].model;
   resultTitle.textContent = `'${displayModel}' ${inputYear}년식 기준 시세`;
-  renderStatCards(closeMatches);
+  resultStamp.textContent = `MATCH ${Math.round(bestModelScore * 100)}%`;
+  renderGauges(closeMatches);
   renderTable(scored.slice(0, 30));
 }
 
