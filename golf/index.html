@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>골프장 홀맵</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>⛳ 골프장 홀맵</h1>
+    <p class="subtitle">골프장명과 코스를 입력하면 1~18번홀 위성 홀맵과 거리를 보여드려요.</p>
+  </header>
+
+  <main class="container">
+    <form id="search-form" class="search-form">
+      <div class="field">
+        <label for="name-input">골프장명</label>
+        <input type="text" id="name-input" placeholder="예: 스카이72, 남서울, 레이크사이드" autocomplete="off" required />
+      </div>
+      <div class="field">
+        <label for="course-input">코스 <span class="optional">(선택)</span></label>
+        <input type="text" id="course-input" placeholder="예: 동, 서 / 레이크, 마운틴" autocomplete="off" />
+      </div>
+      <button type="submit" id="search-btn">검색</button>
+    </form>
+
+    <p id="status" class="status" hidden></p>
+
+    <section id="results" class="card" hidden>
+      <h2>검색 결과</h2>
+      <ul id="result-list" class="result-list"></ul>
+    </section>
+
+    <section id="course-view" hidden>
+      <div class="card course-head">
+        <div>
+          <h2 id="course-title"></h2>
+          <p id="course-sub" class="muted"></p>
+        </div>
+        <div class="unit-toggle" role="group" aria-label="거리 단위">
+          <button type="button" data-unit="m" class="active">m</button>
+          <button type="button" data-unit="yd">yd</button>
+        </div>
+      </div>
+
+      <div id="group-box" class="card" hidden>
+        <p class="muted small">코스 선택 (누른 순서대로 전반 → 후반)</p>
+        <div id="group-chips" class="chips"></div>
+      </div>
+
+      <div id="hole-tabs" class="hole-tabs"></div>
+
+      <div class="map-layout">
+        <div class="map-wrap">
+          <div id="map"></div>
+          <div class="map-tools">
+            <button type="button" id="gps-btn" title="내 위치 기준 거리">📍 내 위치</button>
+            <button type="button" id="overview-btn" title="전체 코스 보기">🗺 전체</button>
+          </div>
+          <p class="map-hint">지도를 탭하면 티(또는 내 위치) → 지점 → 그린 거리를 재요.</p>
+        </div>
+
+        <aside id="hole-info" class="card hole-info"></aside>
+      </div>
+
+      <section class="card">
+        <h2>스코어카드</h2>
+        <div class="table-wrap">
+          <table id="scorecard"></table>
+        </div>
+      </section>
+    </section>
+
+    <p class="footnote">
+      홀 데이터: © OpenStreetMap 기여자 (ODbL) · 위성사진: Esri World Imagery.<br />
+      거리는 지도에 그려진 홀 경로(티 → 그린)를 기준으로 계산한 값이라 실제 스코어카드와 다를 수 있어요.
+      OSM에 홀이 등록되지 않은 골프장은 위성사진에서 직접 탭해서 거리를 잴 수 있습니다.
+    </p>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="geo.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
